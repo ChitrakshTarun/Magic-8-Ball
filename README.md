@@ -1,4 +1,4 @@
-# SwiftBazaar
+# Magic 8 Ball
 
 A React Native Magic-8-Ball Application, built using Expo & the expo-sensors library.
 
