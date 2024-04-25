@@ -6,21 +6,37 @@ import { useEffect, useState } from "react";
 
 export default function App() {
   const [response, setResponse] = useState<String>("Shake the Magic 8 Ball!");
+  const [canGenerate, setCanGenerate] = useState(true);
+
+  /* 
+  TODO: Fix this portion of the code
+  - Make the response say "Thinking" when function triggered
+  - Prevent function to retrigger when started to trigger
+  - Rewrite this logic since it is slightly buggy right now.
+  */
+  Accelerometer.setUpdateInterval(500);
+  const changeResponse = (): void => {
+    if (canGenerate) {
+      setCanGenerate(false);
+      setResponse(Responses[Math.floor(Math.random() * 20)]);
+      setTimeout(() => {
+        setCanGenerate(true);
+      }, 5000);
+    }
+  };
   useEffect(() => {
-    Accelerometer.setUpdateInterval(100);
     Accelerometer.addListener(({ x, y, z }) => {
       if (Math.abs(x) + Math.abs(y) + Math.abs(z) > 5) {
-        setResponse(Responses[Math.floor(Math.random() * 20)]);
+        console.log("Enabled");
+        changeResponse();
       }
     });
   }, []);
-  const changeResponse = (): void => {
-    setResponse(Responses[Math.floor(Math.random() * 20)]);
-  };
   return (
     <View style={styles.container}>
       <Text>{response}</Text>
       <Text>Shake to Generate Response</Text>
+      <Button title="Test" onPress={changeResponse} />
       <StatusBar style="auto" />
     </View>
   );
