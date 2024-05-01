@@ -1,8 +1,8 @@
 # Magic 8 Ball
 
-A React Native Magic-8-Ball Application, built using Expo & the expo-sensors library.
+A React Native Magic 8 Ball application, replicating the Magic 8 Ball toy in the form of a mobile app.
 
-The project is a simple, single-screen application, and uses the device's accelerometer to detect when the device has been shaken to generate a response, similar to how a physical Magic 8 Ball does.
+The project is a simple, single-screen application, and uses the device's accelerometer to detect when the device has been shaken to generate a response, similar to how a physical Magic 8 Ball does. Simply shake the device with the app open to generate a random Magic 8 Ball response.
 
 # Tech Stack
 
@@ -15,6 +15,7 @@ The project is a simple, single-screen application, and uses the device's accele
 ### Dependencies
 
 - `expo-sensors` To access the device's accelerometer
+- `expo-haptics` Vibration feedback when the Magic 8 Ball starts generating
 
 # Run Locally
 

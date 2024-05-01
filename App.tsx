@@ -1,54 +1,38 @@
-import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
-import { Accelerometer } from "expo-sensors";
-import { Responses } from "./assets/data/Responses";
 import { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { Accelerometer } from "expo-sensors";
+import * as Haptics from "expo-haptics";
+import { Responses } from "./assets/data/Responses";
+import Magic8Ball from "./assets/components/Magic8Ball";
 
 export default function App() {
   const [response, setResponse] = useState<String>("Shake the Magic 8 Ball!");
-  const [canGenerate, setCanGenerate] = useState(true);
-
-  /* 
-  TODO: Fix this portion of the code
-  - Make the response say "Thinking" when function triggered
-  - Prevent function to retrigger when started to trigger
-  - Rewrite this logic since it is slightly buggy right now.
-  */
-
-  // const changeResponse = (): void => {
-  //   if (canGenerate) {
-  //     setCanGenerate(false);
-  //     setResponse(Responses[Math.floor(Math.random() * 20)]);
-  //     setTimeout(() => {
-  //       setCanGenerate(true);
-  //     }, 5000);
-  //   }
-  // };
+  const [canGenerate, setCanGenerate] = useState<Boolean>(true);
+  const [isGenerating, setIsGenerating] = useState<Boolean>(false);
   useEffect(() => {
     Accelerometer.setUpdateInterval(250);
     Accelerometer.addListener(({ x, y, z }) => {
       if (!canGenerate) return;
       if (Math.abs(x) + Math.abs(y) + Math.abs(z) > 6) {
-        const myDate1 = new Date();
+        setIsGenerating(true);
         setResponse(`Thinking...`);
-        console.log(`Started: ${myDate1.toString()}`);
         setCanGenerate(false);
         Accelerometer.setUpdateInterval(2250);
         setTimeout(() => {
           setResponse(Responses[Math.floor(Math.random() * 20)]);
           setCanGenerate(true);
           Accelerometer.setUpdateInterval(250);
+          setIsGenerating(false);
         }, 2000);
       }
     });
     return () => {};
   }, []);
   return (
-    <View style={[styles.container, { backgroundColor: canGenerate ? "#fff" : "#ff0000" }]}>
-      <Text>{response}</Text>
-      <Text>Shake to Generate Response</Text>
-      {/* <Button title="Test" onPress={changeResponse} /> */}
-      <StatusBar style="auto" />
+    <View style={[styles.container]}>
+      <Magic8Ball response={response} />
+      <StatusBar style="dark" />
     </View>
   );
 }
@@ -56,7 +40,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
+    backgroundColor: "#555555",
     alignItems: "center",
     justifyContent: "center",
     gap: 64,
