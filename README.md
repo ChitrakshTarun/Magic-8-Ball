@@ -29,10 +29,10 @@ Considering the dependencies being used in this Expo project, you should be able
 
 ### Installation
 
-1. Clone this Repository, then change directory to the HexSplash directory.
+1. Clone this Repository, then change directory to the React-Native-Magic-8-Ball directory.
 
 ```
-https://github.com/ChitrakshTarun/React-Native-Magic-8-Ball.git
+git clone https://github.com/ChitrakshTarun/React-Native-Magic-8-Ball.git
 ```
 
 ```
@@ -52,7 +52,3 @@ npx expo start
 ```
 
 Either scan the QR code using Expo Go on your device, or use an Android/IOS emulator with Expo Go.
-
-# Contributions
-
-I have developed this app as a learning project to learn about the concepts of React Native, Expo and JavaScript/TypeScript. I am open to open-source contributions towards this app, if any, which can help in optimising the code or improving/adding the features inside the app.
